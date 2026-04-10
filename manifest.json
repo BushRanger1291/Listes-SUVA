@@ -1,0 +1,16 @@
+{
+  "name": "Index SUVA QSSE",
+  "short_name": "SUVA-QSSE",
+  "description": "Index opérationnel des listes de contrôle SUVA pour délégués QSSE.",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#00529b",
+  "icons": [
+    {
+      "src": "https://www.suva.ch/favicon.ico",
+      "sizes": "64x64",
+      "type": "image/x-icon"
+    }
+  ]
+}

@@ -75,7 +75,7 @@ const suvaLists = [
     { id: "84041.f", title: "Règles vitales : Toitures et façades" },
     { id: "84042.f", title: "Règles vitales : Installations électriques" },
 
-    // --- AJOUTS EXHAUSTIFS DOC 67000.F ---
+    // --- AJOUTS PRÉCÉDENTS ---
     { id: "67004.f", title: "Toupies" },
     { id: "67006.f", title: "Silos à plaquettes de bois vert" },
     { id: "67007.f", title: "Silos à copeaux de bois" },
@@ -123,7 +123,61 @@ const suvaLists = [
     { id: "67088.f", title: "Déligneuses retour au-dessous" },
     { id: "67094.f", title: "Chargement véhicules engins de levage" },
     { id: "67095.f", title: "Éléments de construction en bois" },
-    { id: "67096.f", title: "Fendeuses à vis" }
+    { id: "67096.f", title: "Fendeuses à vis" },
+
+    // --- COMPLÉTION EXHAUSTIVE FINALISÉE ---
+    { id: "67113.f", title: "Phénomènes dangereux mécaniques liés aux machines" },
+    { id: "67119.f", title: "Accumulateurs au plomb" },
+    { id: "67121.f", title: "Musique au poste de travail" },
+    { id: "67124.f", title: "Préparation du travail" },
+    { id: "67126.f", title: "Circulation des véhicules ferroviaires dans l’entreprise" },
+    { id: "67130.f", title: "Machines à injecter (îlots de production)" },
+    { id: "67131.f", title: "Tondeuses à gazon" },
+    { id: "67139.f", title: "Machine CNC pour percer, tourner et fraiser" },
+    { id: "67141.f", title: "Cloueuses et agrafeuses" },
+    { id: "67142.f", title: "Stockage de marchandises en piles" },
+    { id: "67153.f", title: "Travaux de construction au bord, dans ou au-dessus de l’eau" },
+    { id: "67154.f", title: "Chantiers de montagne" },
+    { id: "67155.f", title: "Déchiqueteuses" },
+    { id: "67156.f", title: "Entretien et taille des houppiers" },
+    { id: "67159.f", title: "Ponts roulants" },
+    { id: "67160.f", title: "Pieux forés, battus ou moulés" },
+    { id: "67164.f", title: "Chariots élévateurs latéraux et quadridirectionnels" },
+    { id: "67171.f", title: "Mesures techniques de protection contre le bruit" },
+    { id: "67174.f", title: "Chargement et déchargement des conteneurs et des bennes" },
+    { id: "67175.f", title: "Maintenance des conteneurs et des bennes" },
+    { id: "67176.f", title: "Engins de damage" },
+    { id: "67183.f", title: "Protection des mains dans la métallurgie" },
+    { id: "67184.f", title: "Protection oculaire dans l’industrie et les arts et métiers" },
+    { id: "67186.f", title: "Poussières de quartz dans les exploitations de roches et graviers" },
+    { id: "67191.f", title: "Pompes à béton" },
+    { id: "67193.f", title: "Installations d’enneigement" },
+    { id: "67194.f", title: "Transport et entreposage de verre plat dans les entreprises" },
+    { id: "67196.f", title: "Ascenseurs de chantier pour personnes et matériaux" },
+    { id: "67197.f", title: "Entrepôts à allées étroites" },
+    { id: "67198.f", title: "Accessoires de levage" },
+    { id: "67200.f", title: "Travaux héliportés sur les chantiers forestiers" },
+    { id: "67201.f", title: "Galvanotechnique" },
+    { id: "67202.f", title: "Béton projeté pour travaux de génie civil et souterrains" },
+    { id: "67203.f", title: "Pose et entretien de revêtements de sols" },
+    { id: "84044.f", title: "Règles vitales : travaux avec protection par encordement" },
+    { id: "84045.f", title: "Règles vitales : remontées mécaniques et téléskis" },
+    { id: "84046.f", title: "Règles vitales : construction en bois" },
+    { id: "84048.f", title: "Règles vitales : montage de charpentes métalliques" },
+    { id: "84049.f", title: "Règles vitales : construction en éléments préfabriqués en béton" },
+    { id: "84050.f", title: "Règles vitales : personnel au sol hélicoptères" },
+    { id: "84051.f", title: "Règles vitales : génie civil et travaux publics" },
+    { id: "84054.f", title: "Règles vitales : artisanat et industrie" },
+    { id: "84056.f", title: "Règles vitales : transports routiers" },
+    { id: "84058.f", title: "Règles vitales : branche des ascenseurs" },
+    { id: "84061.f", title: "Règles vitales : construction métallique" },
+    { id: "84064.f", title: "Règles vitales : lignes électriques haute tension" },
+    { id: "84066.f", title: "Règles vitales : lignes électriques poteaux bois" },
+    { id: "84067.f", title: "Règles vitales : chariots élévateurs" },
+    { id: "84071.f", title: "Règles vitales : branche ferroviaire" },
+    { id: "84073.f", title: "Règles vitales : techniciens du bâtiment" },
+    { id: "84074.f", title: "Règles vitales : travaux souterrains" },
+    { id: "84077.f", title: "Règles vitales : élingage des charges" }
 ];
 
 const searchBar = document.getElementById('searchBar');
@@ -144,7 +198,6 @@ const displayLists = (items) => {
 searchBar.addEventListener('keyup', (e) => {
     const searchString = e.target.value.toLowerCase();
     const filteredLists = suvaLists.filter(item => {
-        // Normalisation pour ignorer les accents dans la recherche
         const normalizedTitle = item.title.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
         const normalizedSearch = searchString.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
         
@@ -154,10 +207,8 @@ searchBar.addEventListener('keyup', (e) => {
     displayLists(filteredLists);
 });
 
-// Enregistrement du Service Worker (PWA)
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('sw.js');
 }
 
-// Premier affichage
 displayLists(suvaLists);

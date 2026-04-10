@@ -1,5 +1,4 @@
 const suvaLists = [
-    // --- LISTES INITIALES ---
     { id: "66084-2.f", title: "Réception d'équipements de travail" },
     { id: "66092-1.f", title: "Collaboration avec des entreprises tierces" },
     { id: "67001.f", title: "Voies de circulation pour piétons" },
@@ -66,16 +65,12 @@ const suvaLists = [
     { id: "67199.f", title: "Alléger la charge (Ergonomie)" },
     { id: "67204.f", title: "Substances nocives en entreprise" },
     { id: "88179.f", title: "Conducteurs de grues à tour" },
-
-    // --- RÈGLES VITALES ---
     { id: "84034.f", title: "Règles vitales : Forêt" },
     { id: "84035.f", title: "Règles vitales : Bâtiment" },
     { id: "84036.f", title: "Règles vitales : Peintres et plâtriers" },
     { id: "84040.f", title: "Règles vitales : Maintenance" },
     { id: "84041.f", title: "Règles vitales : Toitures et façades" },
     { id: "84042.f", title: "Règles vitales : Installations électriques" },
-
-    // --- AJOUTS PRÉCÉDENTS ---
     { id: "67004.f", title: "Toupies" },
     { id: "67006.f", title: "Silos à plaquettes de bois vert" },
     { id: "67007.f", title: "Silos à copeaux de bois" },
@@ -124,8 +119,6 @@ const suvaLists = [
     { id: "67094.f", title: "Chargement véhicules engins de levage" },
     { id: "67095.f", title: "Éléments de construction en bois" },
     { id: "67096.f", title: "Fendeuses à vis" },
-
-    // --- COMPLÉTION EXHAUSTIVE FINALISÉE ---
     { id: "67113.f", title: "Phénomènes dangereux mécaniques liés aux machines" },
     { id: "67119.f", title: "Accumulateurs au plomb" },
     { id: "67121.f", title: "Musique au poste de travail" },
@@ -188,7 +181,7 @@ const displayLists = (items) => {
         <div class="card">
             <div class="card-info">
                 <h3>${item.title}</h3>
-                <p>Réf: ${item.id}</p>
+                <p>REF: ${item.id}</p>
             </div>
             <a href="https://www.suva.ch/${item.id}" target="_blank" class="btn-download">PDF</a>
         </div>
@@ -196,19 +189,18 @@ const displayLists = (items) => {
 };
 
 searchBar.addEventListener('keyup', (e) => {
-    const searchString = e.target.value.toLowerCase();
+    const searchString = e.target.value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
     const filteredLists = suvaLists.filter(item => {
         const normalizedTitle = item.title.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-        const normalizedSearch = searchString.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-        
-        return normalizedTitle.includes(normalizedSearch) || 
-               item.id.toLowerCase().includes(searchString);
+        return normalizedTitle.includes(searchString) || item.id.toLowerCase().includes(searchString);
     });
     displayLists(filteredLists);
 });
 
+// Enregistrement du Service Worker pour l'installation
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('sw.js');
+    navigator.serviceWorker.register('sw.js');
 }
 
+// Premier affichage
 displayLists(suvaLists);

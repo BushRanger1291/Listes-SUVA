@@ -1,5 +1,5 @@
 const suvaLists = [
-    // --- LISTES DE CONTRÔLE GÉNÉRALES ET TECHNIQUES ---
+    // --- LISTES INITIALES ---
     { id: "66084-2.f", title: "Réception d'équipements de travail" },
     { id: "66092-1.f", title: "Collaboration avec des entreprises tierces" },
     { id: "67001.f", title: "Voies de circulation pour piétons" },
@@ -67,13 +67,63 @@ const suvaLists = [
     { id: "67204.f", title: "Substances nocives en entreprise" },
     { id: "88179.f", title: "Conducteurs de grues à tour" },
 
-    // --- RÈGLES VITALES (CRUCIAL POUR UN QSSE) ---
+    // --- RÈGLES VITALES ---
     { id: "84034.f", title: "Règles vitales : Forêt" },
     { id: "84035.f", title: "Règles vitales : Bâtiment" },
     { id: "84036.f", title: "Règles vitales : Peintres et plâtriers" },
     { id: "84040.f", title: "Règles vitales : Maintenance" },
     { id: "84041.f", title: "Règles vitales : Toitures et façades" },
-    { id: "84042.f", title: "Règles vitales : Installations électriques" }
+    { id: "84042.f", title: "Règles vitales : Installations électriques" },
+
+    // --- AJOUTS EXHAUSTIFS DOC 67000.F ---
+    { id: "67004.f", title: "Toupies" },
+    { id: "67006.f", title: "Silos à plaquettes de bois vert" },
+    { id: "67007.f", title: "Silos à copeaux de bois" },
+    { id: "67014.f", title: "Scies circulaires à table mobile" },
+    { id: "67015.f", title: "Raboteuses portatives" },
+    { id: "67016.f", title: "Scies circulaires à main" },
+    { id: "67022.f", title: "Installations de manutention continue de charges isolées" },
+    { id: "67024.f", title: "Installations de manutention continue de palettes" },
+    { id: "67025.f", title: "Entreposage de panneaux en bois et en plastique" },
+    { id: "67026.f", title: "Transport de panneaux en bois et en plastique" },
+    { id: "67027.f", title: "Outils de fraisage" },
+    { id: "67030.f", title: "Eczéma du ciment" },
+    { id: "67033.f", title: "Travailler avec une tronçonneuse" },
+    { id: "67036.f", title: "Perceuses à colonne et d'établi" },
+    { id: "67037.f", title: "Machines à meuler ou tourets à meuler" },
+    { id: "67039.f", title: "Petits engins de chantier" },
+    { id: "67040.f", title: "Filtres à particules pour moteurs diesel" },
+    { id: "67041.f", title: "Machines de chantier à conducteur à pied" },
+    { id: "67042.f", title: "Accès aux silos pour sable et gravier" },
+    { id: "67043.f", title: "Transporteurs à bande pour marchandises en vrac" },
+    { id: "67046.f", title: "Chariots électriques à timon" },
+    { id: "67047.f", title: "Défonceuses portatives" },
+    { id: "67048.f", title: "Fraiseuses pour joints d’ombre" },
+    { id: "67050.f", title: "Achat de meubles et accessoires pour travail sur écran" },
+    { id: "67053.f", title: "Tours conventionnels" },
+    { id: "67056.f", title: "Lubrifiants" },
+    { id: "67057.f", title: "Scies à ruban" },
+    { id: "67058.f", title: "Dégauchisseuses-raboteuses" },
+    { id: "67059.f", title: "Travailler avec une débroussailleuse" },
+    { id: "67060.f", title: "Fendeuses à coin pour bois" },
+    { id: "67063.f", title: "Résines réactives" },
+    { id: "67065.f", title: "Quais de chargement" },
+    { id: "67066.f", title: "Rampes ajustables et niches de chargement" },
+    { id: "67067.f", title: "Plateformes élévatrices pour quais" },
+    { id: "67069.f", title: "Scies circulaires à chariot porte-grume" },
+    { id: "67073.f", title: "Transtockeurs" },
+    { id: "67077.f", title: "Poussières nocives" },
+    { id: "67078.f", title: "Outillage manuel" },
+    { id: "67079.f", title: "Lasers sur les chantiers" },
+    { id: "67083.f", title: "Électricité statique" },
+    { id: "67084.f", title: "Acides et bases" },
+    { id: "67085.f", title: "Scies circulaires multiples cylindres" },
+    { id: "67086.f", title: "Scies circulaires multiples ruban" },
+    { id: "67087.f", title: "Déligneuses retour au-dessus" },
+    { id: "67088.f", title: "Déligneuses retour au-dessous" },
+    { id: "67094.f", title: "Chargement véhicules engins de levage" },
+    { id: "67095.f", title: "Éléments de construction en bois" },
+    { id: "67096.f", title: "Fendeuses à vis" }
 ];
 
 const searchBar = document.getElementById('searchBar');
@@ -94,15 +144,20 @@ const displayLists = (items) => {
 searchBar.addEventListener('keyup', (e) => {
     const searchString = e.target.value.toLowerCase();
     const filteredLists = suvaLists.filter(item => {
-        return item.title.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(searchString) || 
+        // Normalisation pour ignorer les accents dans la recherche
+        const normalizedTitle = item.title.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        const normalizedSearch = searchString.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        
+        return normalizedTitle.includes(normalizedSearch) || 
                item.id.toLowerCase().includes(searchString);
     });
     displayLists(filteredLists);
 });
 
-// Service Worker Registration pour PWA
+// Enregistrement du Service Worker (PWA)
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('sw.js');
 }
 
+// Premier affichage
 displayLists(suvaLists);

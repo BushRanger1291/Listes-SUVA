@@ -1,0 +1,61 @@
+:root {
+    --suva-blue: #00529b;
+    --text-dark: #333;
+    --bg-light: #f4f4f9;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+h1 { color: var(--suva-blue); }
+
+#searchBar {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.results-grid {
+    display: grid;
+    gap: 15px;
+}
+
+.card {
+    background: white;
+    padding: 15px;
+    border-left: 5px solid var(--suva-blue);
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-info h3 { margin: 0 0 5px 0; font-size: 1.1em; }
+.card-info p { margin: 0; color: #666; font-size: 0.9em; }
+
+.btn-download {
+    background-color: var(--suva-blue);
+    color: white;
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    font-weight: bold;
+}

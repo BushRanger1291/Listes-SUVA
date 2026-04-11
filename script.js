@@ -173,8 +173,8 @@ const suvaLists = [
     { id: "84077.f", title: "Règles vitales : élingage des charges" }
 ];
 
-const resultsList = document.getElementById('resultsList');
-const searchBar = document.getElementById('searchBar');
+// Variables globales (seront assignées au chargement)
+let resultsList, searchBar, btnSortNum, btnSortName;
 
 const displayLists = (items) => {
     if (!resultsList) return;
@@ -206,12 +206,32 @@ const handleSearch = () => {
     displayLists(filteredLists);
 };
 
-searchBar.addEventListener('keyup', handleSearch);
-
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./sw.js');
-}
-
+// --- INITIALISATION PROPRE ---
 document.addEventListener('DOMContentLoaded', () => {
+    // On récupère les éléments une fois que le DOM est prêt
+    resultsList = document.getElementById('resultsList');
+    searchBar = document.getElementById('searchBar');
+    btnSortNum = document.getElementById('sortByNum');
+    btnSortName = document.getElementById('sortByName');
+
+    // On branche les événements
+    if (searchBar) {
+        searchBar.addEventListener('keyup', handleSearch);
+    }
+
+    if (btnSortNum) {
+        btnSortNum.addEventListener('click', () => sortItems('id'));
+    }
+
+    if (btnSortName) {
+        btnSortName.addEventListener('click', () => sortItems('title'));
+    }
+
+    // Affichage initial
     sortItems('id');
 });
+
+// Enregistrement du Service Worker
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./sw.js').catch(err => console.log("SW registration failed", err));
+}

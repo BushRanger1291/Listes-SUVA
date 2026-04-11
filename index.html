@@ -22,14 +22,16 @@
             <p class="subtitle">Outil opérationnel QSSE</p>
             
             <div class="sort-controls">
-                <button onclick="sortItems('id')">🔢 Trier par N°</button>
-                <button onclick="sortItems('title')">🔤 Trier par Nom</button>
+                <button id="sortByNum">🔢 Trier par N°</button>
+                <button id="sortByName">🔤 Trier par Nom</button>
             </div>
 
             <input type="text" id="searchBar" placeholder="Rechercher par titre ou numéro...">
         </header>
+        
         <div id="resultsList" class="results-grid"></div>
     </div>
+    
     <script src="script.js"></script>
 </body>
 </html>

@@ -173,8 +173,8 @@ const suvaLists = [
     { id: "84077.f", title: "Règles vitales : élingage des charges" }
 ];
 
-const searchBar = document.getElementById('searchBar');
 const resultsList = document.getElementById('resultsList');
+const searchBar = document.getElementById('searchBar');
 
 const displayLists = (items) => {
     resultsList.innerHTML = items.map(item => `
@@ -188,19 +188,27 @@ const displayLists = (items) => {
     `).join('');
 };
 
-searchBar.addEventListener('keyup', (e) => {
-    const searchString = e.target.value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+const sortItems = (key) => {
+    suvaLists.sort((a, b) => {
+        return a[key].localeCompare(b[key], 'fr', { numeric: true, sensitivity: 'base' });
+    });
+    handleSearch();
+};
+
+const handleSearch = () => {
+    const searchString = searchBar.value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
     const filteredLists = suvaLists.filter(item => {
         const normalizedTitle = item.title.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
         return normalizedTitle.includes(searchString) || item.id.toLowerCase().includes(searchString);
     });
     displayLists(filteredLists);
-});
+};
 
-// Enregistrement du Service Worker pour l'installation
+searchBar.addEventListener('keyup', handleSearch);
+
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('sw.js');
 }
 
-// Premier affichage
-displayLists(suvaLists);
+// Lancement par défaut : trié par N°
+sortItems('id');

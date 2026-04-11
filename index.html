@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -5,9 +7,29 @@
     
     <link rel="manifest" href="./manifest.json">
     <link rel="icon" type="image/png" href="./icon-512.png">
+    <link rel="apple-touch-icon" href="./icon-512.png">
     
     <meta name="theme-color" content="#00529b">
     <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
 
     <link rel="stylesheet" href="./style.css">
 </head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Index SUVA</h1>
+            <p class="subtitle">Outil opérationnel QSSE</p>
+            
+            <div class="sort-controls">
+                <button onclick="sortItems('id')">🔢 Trier par N°</button>
+                <button onclick="sortItems('title')">🔤 Trier par Nom</button>
+            </div>
+
+            <input type="text" id="searchBar" placeholder="Rechercher par titre ou numéro...">
+        </header>
+        <div id="resultsList" class="results-grid"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
